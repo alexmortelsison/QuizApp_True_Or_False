@@ -27,6 +27,15 @@ class Quizzly extends StatefulWidget {
 }
 
 class _QuizzlyState extends State<Quizzly> {
+  List<String> questions = [
+    "One + One equals Two",
+    "Two + Two equals Four",
+    "Three + Three equals Six"
+  ];
+
+  List<bool> answers = [true, true, true];
+
+  int questionNumber = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,7 +47,7 @@ class _QuizzlyState extends State<Quizzly> {
           children: [
             Center(
               child: Text(
-                "Question 1",
+                questions[questionNumber],
                 style: GoogleFonts.lato(
                   fontSize: 20,
                   color: Colors.white,
@@ -58,7 +67,15 @@ class _QuizzlyState extends State<Quizzly> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      bool correctAnswer = answers[questionNumber];
+
+                      if (correctAnswer == true) {
+                      } else {}
+                      setState(() {
+                        questionNumber++;
+                      });
+                    },
                     child: Text(
                       "True",
                       style: GoogleFonts.lato(
@@ -74,7 +91,11 @@ class _QuizzlyState extends State<Quizzly> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      setState(() {
+                        questionNumber++;
+                      });
+                    },
                     child: Text(
                       "False",
                       style: GoogleFonts.lato(
