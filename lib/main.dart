@@ -29,22 +29,64 @@ class Quizzly extends StatefulWidget {
 class _QuizzlyState extends State<Quizzly> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Container(
-        decoration: const BoxDecoration(color: Colors.black),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
+    return Container(
+      decoration: const BoxDecoration(color: Colors.black),
+      child: Padding(
+        padding: const EdgeInsets.only(top: 100),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: Text(
                 "Question 1",
                 style: GoogleFonts.lato(
                   fontSize: 20,
                   color: Colors.white,
                 ),
+                textAlign: TextAlign.center,
               ),
-            ],
-          ),
+            ),
+            const SizedBox(
+              height: 400,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.green,
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      "True",
+                      style: GoogleFonts.lato(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      "False",
+                      style: GoogleFonts.lato(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
