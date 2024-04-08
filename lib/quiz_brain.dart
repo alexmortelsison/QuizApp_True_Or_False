@@ -30,7 +30,7 @@ class QuizBrain {
   ];
 
   void nextQuestion() {
-    if (_questionNumber <= _questionBank.length - 1) {
+    if (_questionNumber < _questionBank.length - 1) {
       _questionNumber++;
     }
   }
@@ -41,5 +41,17 @@ class QuizBrain {
 
   String getQuestionText() {
     return _questionBank[_questionNumber].questionText;
+  }
+
+  bool isFinished() {
+    if (_questionNumber >= _questionBank.length - 1) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void reset() {
+    _questionNumber = 0;
   }
 }

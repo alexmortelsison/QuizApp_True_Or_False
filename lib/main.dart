@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quiz_true_or_false/quiz_brain.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 QuizBrain quizBrain = QuizBrain();
 
@@ -30,7 +31,33 @@ class Quizzly extends StatefulWidget {
 }
 
 class _QuizzlyState extends State<Quizzly> {
-  List<bool> answers = [true, true, true];
+  int scoreKeeper = 0;
+  void checkAnswer(bool userPickedAnswer) {
+    bool correctAnswer = quizBrain.getCorrectAnswer();
+    setState(
+      () {
+        if (quizBrain.isFinished() == true) {
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.success,
+            animType: AnimType.scale,
+            title: 'Play Again?',
+            desc: "Your score is $scoreKeeper!",
+            btnCancelOnPress: () {},
+            btnOkOnPress: () {},
+          ).show();
+
+          quizBrain.reset();
+          scoreKeeper = 0;
+        } else {
+          if (correctAnswer == userPickedAnswer) {
+            scoreKeeper++;
+          } else {}
+          quizBrain.nextQuestion();
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +78,15 @@ class _QuizzlyState extends State<Quizzly> {
                 textAlign: TextAlign.center,
               ),
             ),
-            const SizedBox(
-              height: 400,
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 200),
+              child: Text(
+                "Score: $scoreKeeper",
+                style: GoogleFonts.lato(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -64,13 +98,7 @@ class _QuizzlyState extends State<Quizzly> {
                       backgroundColor: Colors.green,
                     ),
                     onPressed: () {
-                      bool correctAnswer = quizBrain.getCorrectAnswer();
-
-                      if (correctAnswer == true) {
-                      } else {}
-                      setState(() {
-                        quizBrain.nextQuestion();
-                      });
+                      checkAnswer(true);
                     },
                     child: Text(
                       "True",
@@ -88,9 +116,7 @@ class _QuizzlyState extends State<Quizzly> {
                       backgroundColor: Colors.red,
                     ),
                     onPressed: () {
-                      setState(() {
-                        quizBrain.nextQuestion();
-                      });
+                      checkAnswer(false);
                     },
                     child: Text(
                       "False",
