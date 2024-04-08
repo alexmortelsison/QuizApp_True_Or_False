@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quiz_true_or_false/quiz_brain.dart';
+
+QuizBrain quizBrain = QuizBrain();
 
 void main() {
   runApp(const Quiz());
@@ -27,15 +30,8 @@ class Quizzly extends StatefulWidget {
 }
 
 class _QuizzlyState extends State<Quizzly> {
-  List<String> questions = [
-    "One + One equals Two",
-    "Two + Two equals Four",
-    "Three + Three equals Six"
-  ];
-
   List<bool> answers = [true, true, true];
 
-  int questionNumber = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,7 +43,7 @@ class _QuizzlyState extends State<Quizzly> {
           children: [
             Center(
               child: Text(
-                questions[questionNumber],
+                quizBrain.getQuestionText(),
                 style: GoogleFonts.lato(
                   fontSize: 20,
                   color: Colors.white,
@@ -68,12 +64,12 @@ class _QuizzlyState extends State<Quizzly> {
                       backgroundColor: Colors.green,
                     ),
                     onPressed: () {
-                      bool correctAnswer = answers[questionNumber];
+                      bool correctAnswer = quizBrain.getCorrectAnswer();
 
                       if (correctAnswer == true) {
                       } else {}
                       setState(() {
-                        questionNumber++;
+                        quizBrain.nextQuestion();
                       });
                     },
                     child: Text(
@@ -93,7 +89,7 @@ class _QuizzlyState extends State<Quizzly> {
                     ),
                     onPressed: () {
                       setState(() {
-                        questionNumber++;
+                        quizBrain.nextQuestion();
                       });
                     },
                     child: Text(
